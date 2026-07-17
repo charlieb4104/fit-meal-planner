@@ -5,6 +5,10 @@ function App() {
   const [start, setStarted] = useState(false)
   const [selectedDays, setSelectedDays] = useState<string[]>([])
   const [enter, setEnter] = useState(false)
+  const [edit, setEdit] = useState(false)
+
+  const [workoutPlan, setWorkoutPlan] = useState<string[]>([])
+  
 
   const days = [
     "Monday",
@@ -26,24 +30,24 @@ function App() {
     );
   }
 
-  let workoutPlan: string[] = [];
-
+  const generatePlan = () => {
   if (selectedDays.length === 3){
-    workoutPlan = ["Upper Body", "Lower Body", "Full Body and Cardio"];
+    setWorkoutPlan(["Upper Body", "Lower Body", "Full Body and Cardio"]);
   } else if (selectedDays.length === 4){
-    workoutPlan = [
+    setWorkoutPlan([
       "Upper Body", 
       "Lower Body", 
       "Full Body and Cardio", 
-      "Core"];
+      "Core"]);
   } else if (selectedDays.length >= 5){
-    workoutPlan = [
+    setWorkoutPlan([
       "Upper Body", 
       "Lower Body", 
       "Full Body", 
       "Cardio",
       "Core"
-    ];
+    ])};
+    setEnter(true);
   }
 
   if(enter){
@@ -52,10 +56,34 @@ function App() {
         <h1>Your Workout Plan</h1>
 
         {selectedDays.map((day, index) => (
-          <p key={day}>
-            {day} - {workoutPlan[index] || "Cardio"}
-          </p>
+          <div key={day}>
+            <h3>{day}</h3>
+            {edit ? (
+              <select
+                value={workoutPlan[index]}
+                onChange={(e) => {
+                  const newPlan = [...workoutPlan];
+                  newPlan[index] = e.target.value;
+                  setWorkoutPlan(newPlan);
+                }}
+              >
+                <option value="Upper Body">Upper Body</option>
+                <option value="Lower Body">Lower Body</option>
+                <option value="Full Body">Full Body</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Core">Core</option>
+              </select>
+            ) : (
+              <p>{workoutPlan[index]}</p>
+            )}
+          </div>
         ))}
+        {edit && (
+          <button onClick={() => setEdit(false)}>Save Plan</button>
+        )}
+        {!edit && (
+          <button onClick={() => setEdit(true)}>Edit Plan</button>
+        )}
       </div>
     )
   }
@@ -93,7 +121,7 @@ function App() {
           <br />
           <br />
         </div>
-        <button onClick={() => setEnter(true)}>Generate my plan!</button>
+        <button onClick={() => generatePlan()}>Generate my plan!</button>
       </section>
     </>
   );
