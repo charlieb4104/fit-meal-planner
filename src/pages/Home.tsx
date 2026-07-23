@@ -1,7 +1,7 @@
 function Home() {
   return (
     <div>
-      <h1>Fit Planner</h1>
+      <h1>Welcome to the Fit Meal Planner</h1>
       <p>Your workouts and meals all in one place. Isn't that proper fit?</p>
     </div>
   );

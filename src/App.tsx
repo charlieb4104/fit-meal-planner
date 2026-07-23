@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Layout from "./components/Layout";
+
 import Home from "./pages/Home";
 import WorkoutPlanner from "./pages/WorkoutPlanner";
 import MealPlanner from "./pages/MealPlanner";
@@ -10,30 +12,34 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route 
-          path="/" 
-          element={<Home />} 
-        />
-        <Route 
-          path="/workouts" 
-          element={<WorkoutPlanner />} 
-        />
+        <Route element={<Layout />}>
 
-        <Route 
-          path="/meals" 
-          element={<MealPlanner />} 
-        />
+    <Route 
+      path="/" 
+      element={<Home />} 
+    />
 
-        <Route 
-          path="/shopping" 
-          element={<ShoppingList />} 
-        />
+    <Route 
+      path="/workouts" 
+      element={<WorkoutPlanner />} 
+    />
 
-        <Route 
-          path="/login" 
-          element={<Login />} 
-        />
+    <Route 
+      path="/meals" 
+      element={<MealPlanner />} 
+    />
 
+    <Route 
+      path="/shopping" 
+      element={<ShoppingList />} 
+    />
+
+    <Route 
+      path="/login" 
+      element={<Login />} 
+    />
+
+  </Route>
       </Routes>
     </BrowserRouter>
   );
